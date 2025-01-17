@@ -1,0 +1,11 @@
+### Gradle and Kotlin ###
+.kotlin
+.gradle
+build
+
+### Mac OS ###
+.DS_Store
+
+### JetBrains and VSCode ###
+.idea
+.vscode
