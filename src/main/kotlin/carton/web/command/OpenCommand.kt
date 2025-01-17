@@ -2,11 +2,12 @@ package burrow.carton.web.command
 
 import burrow.carton.cradle.Cradle
 import burrow.carton.hoard.HoardPair
-import burrow.kernel.terminal.Command
-import burrow.kernel.terminal.CommandData
-import burrow.kernel.terminal.ExitCode
-import burrow.kernel.terminal.Parameters
+import burrow.kernel.terminal.*
 
+@BurrowCommand(
+    name = "open",
+    header = ["Opens a website associated with a given name."]
+)
 class OpenCommand(data: CommandData) : Command(data) {
     @Parameters(
         index = "0",
