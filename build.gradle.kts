@@ -14,7 +14,7 @@ kotlin {
 }
 
 dependencies {
-    implementation(files("/Users/james/.burrow/libs/burrow.jar"))
+    implementation(files(System.getProperty("user.home") + "/.burrow/libs/burrow.jar"))
     testImplementation(kotlin("test"))
 }
 

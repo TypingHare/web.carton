@@ -3,7 +3,6 @@ package burrow.carton.web.command
 import burrow.carton.hoard.Hoard
 import burrow.carton.hoard.HoardPair
 import burrow.carton.hoard.HoardTag
-import burrow.carton.inverse.Inverse
 import burrow.common.palette.Highlight
 import burrow.common.palette.PicocliPalette
 import burrow.common.palette.Style
@@ -43,7 +42,7 @@ class ListCommand(data: CommandData) : Command(data) {
             )
         }
 
-        use(Inverse::class).printTable(stdout, table)
+        printTable(table)
 
         return ExitCode.OK
     }
