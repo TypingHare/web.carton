@@ -14,7 +14,10 @@ kotlin {
 }
 
 dependencies {
-    implementation(files(System.getProperty("user.home") + "/.burrow/libs/burrow.jar"))
+    implementation(files(System.getProperty("user.home") + "/.local/share/burrow/lib/burrow.jar"))
+    implementation(fileTree(System.getProperty("user.home") + "/.local/share/burrow/lib") {
+        include("**/*.jar")
+    })
     testImplementation(kotlin("test"))
 }
 
