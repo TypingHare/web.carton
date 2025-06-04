@@ -9,6 +9,8 @@ import picocli.CommandLine
 )
 class ListCommand : CoreCommand() {
     override fun call(): Int {
+        super.call()
+
         stdout.println("This command should display a list of webs.")
 
         return CommandLine.ExitCode.OK

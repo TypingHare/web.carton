@@ -15,6 +15,8 @@ class OpenCommand : CoreCommand() {
     private var name = ""
 
     override fun call(): Int {
+        super.call()
+
         stdout.println(name)
 
         return CommandLine.ExitCode.OK
