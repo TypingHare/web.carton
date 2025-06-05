@@ -9,10 +9,9 @@ import burrow.kernel.chamber.Furnishing
 import burrow.kernel.chamber.Furniture
 import burrow.kernel.chamber.Renovator
 import burrow.kernel.chamber.Spec
-import burrow.kernel.chamber.getId
 
 const val VERSION = "0.0.0"
-const val REQUIRED_BURROW_VERSION = "0.0.0"
+// const val REQUIRED_BURROW_VERSION = "0.0.0"
 
 @Suppress("unused")
 @Furniture(
@@ -26,7 +25,7 @@ class Web(
 ) : Furnishing<WebSpec>(renovator, blueprint) {
     override fun initSpec(): WebSpec =
         WebSpec(
-            requires = listOf(getId(Hoard::class))
+            requires = listOf(id(Hoard::class))
         )
 
     override fun assemble() {

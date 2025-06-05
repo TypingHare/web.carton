@@ -5,7 +5,7 @@ import picocli.CommandLine
 
 @CommandLine.Command(
     name = "list",
-    header = [""]
+    header = ["Display all web entries."]
 )
 class ListCommand : CoreCommand() {
     override fun call(): Int {
