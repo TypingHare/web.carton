@@ -5,8 +5,10 @@ import burrow.carton.hoard.Hoard
 import burrow.carton.web.command.ListCommand
 import burrow.carton.web.command.OpenCommand
 import burrow.kernel.Blueprint
+import burrow.kernel.chamber.Dependency
 import burrow.kernel.chamber.Furnishing
 import burrow.kernel.chamber.Furniture
+import burrow.kernel.chamber.RawSpec
 import burrow.kernel.chamber.Renovator
 import burrow.kernel.chamber.Spec
 
@@ -23,9 +25,11 @@ class Web(
     renovator: Renovator,
     blueprint: Blueprint,
 ) : Furnishing<WebSpec>(renovator, blueprint) {
-    override fun initSpec(): WebSpec =
+    override fun initSpec(rawSpec: RawSpec): WebSpec =
         WebSpec(
-            requires = listOf(id(Hoard::class))
+            requires = parseRequire (
+                Dependency(Hoard::class)
+            )
         )
 
     override fun assemble() {
@@ -36,4 +40,4 @@ class Web(
     }
 }
 
-data class WebSpec(override val requires: List<String>): Spec(requires)
+data class WebSpec(override val requires: Collection<Dependency>): Spec(requires)
