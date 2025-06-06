@@ -33,7 +33,7 @@ class Web(
         )
 
     override fun assemble() {
-        use(Core::class).registerSubCommands(
+        use(Core::class).extendSubcommands(
             ListCommand::class,
             OpenCommand::class
         )
