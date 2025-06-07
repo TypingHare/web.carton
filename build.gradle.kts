@@ -14,7 +14,13 @@ kotlin {
 }
 
 dependencies {
-    implementation(files(System.getProperty("user.home") + "/.local/share/burrow/lib/burrow.jar"))
+    val homeDirectory = System.getProperty("user.home") as String
+    val burrowLibRootPath = File(homeDirectory, ".local/share/burrow/lib")
+    val burrowLibs = burrowLibRootPath
+        .listFiles { file -> file.extension == "jar" }
+        ?.toList() ?: emptyList()
+    implementation(files(burrowLibs))
+
     testImplementation(kotlin("test"))
 }
 

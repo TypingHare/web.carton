@@ -9,3 +9,4 @@ build
 ### JetBrains and VSCode ###
 .idea
 .vscode
+*.iml
