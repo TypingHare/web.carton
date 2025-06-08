@@ -2,6 +2,7 @@ package burrow.carton.web.command
 
 import burrow.carton.core.command.CoreCommand
 import burrow.carton.cradle.Cradle
+import burrow.carton.hoard.Hoard
 import burrow.carton.hoard.HoardPair
 import burrow.carton.web.WebRecord
 import picocli.CommandLine
@@ -21,14 +22,15 @@ class OpenCommand : CoreCommand() {
         super.call()
 
         @Suppress("USELESS_CAST")
-        val record = use(HoardPair::class).idSetMap
+        val recordId = use(HoardPair::class).idSetMap
             .getOrDefault(name, emptySet())
-            .firstOrNull() as WebRecord?
-        if (record == null) {
+            .firstOrNull() as Int?
+        if (recordId == null) {
             stderr.println("No webpage found with the name: $name")
             return CommandLine.ExitCode.USAGE
         }
 
+        val record = use(Hoard::class).getStorage<WebRecord>().get(recordId)
         val url = record.url
         stdout.println("Opening webpage at: $url")
         use(Cradle::class).executeCommand(listOf("open", url), this)
