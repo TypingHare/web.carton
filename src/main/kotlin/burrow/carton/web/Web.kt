@@ -6,6 +6,8 @@ import burrow.carton.hoard.Hoard
 import burrow.carton.hoard.HoardPair
 import burrow.carton.hoard.HoardTime
 import burrow.carton.shell.Shell
+import burrow.carton.web.command.AddCommand
+import burrow.carton.web.command.DelCommand
 import burrow.carton.web.command.ListCommand
 import burrow.carton.web.command.OpenCommand
 import burrow.kernel.Blueprint
@@ -31,7 +33,9 @@ class Web(
     override fun assemble() {
         use(Core::class).extendSubcommands(
             ListCommand::class,
-            OpenCommand::class
+            OpenCommand::class,
+            AddCommand::class,
+            DelCommand::class
         )
 
         useSpec(Hoard::class).recordClassName = WebRecord::class.java.name
