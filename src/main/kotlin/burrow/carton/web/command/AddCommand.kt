@@ -26,6 +26,7 @@ class AddCommand : CoreCommand() {
         super.call()
 
         dispatch(AddCommand(), listOf(name, url))
+        stdout.println("Added webpage entry: $name -> $url")
 
         return CommandLine.ExitCode.OK
     }

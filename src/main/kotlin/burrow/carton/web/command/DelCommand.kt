@@ -23,8 +23,10 @@ class DelCommand : CoreCommand() {
 
         if (nameOrId.toIntOrNull() != null) {
             use(Hoard::class).deleteRecord<WebRecord>(nameOrId.toInt())
+            stdout.println("Deleted webpage entry with ID: $nameOrId")
         } else {
             use(HoardPair::class).deleteRecords<WebRecord>(nameOrId)
+            stdout.println("Deleted webpage entry with name: $nameOrId")
         }
 
         return CommandLine.ExitCode.OK
