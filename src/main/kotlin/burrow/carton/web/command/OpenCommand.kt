@@ -21,17 +21,17 @@ class OpenCommand : CoreCommand() {
     override fun call(): Int {
         super.call()
 
-        @Suppress("USELESS_CAST")
-        val recordId = use(HoardPair::class).idSetMap
-            .getOrDefault(name, emptySet())
-            .firstOrNull() as Int?
+        val recordId = use(HoardPair::class).getIdSetByKey(name).firstOrNull()
         if (recordId == null) {
             stderr.println("No webpage found with the name: $name")
             return CommandLine.ExitCode.USAGE
         }
 
         val record = use(Hoard::class).getStorage<WebRecord>().get(recordId)
-        val url = record.url
+        val url = record.url.let {
+            if (it.startsWith("http:")) it else "https://$it"
+        }
+
         stdout.println("Opening webpage at: $url")
         use(Cradle::class).executeCommand(listOf("open", url), this)
 
