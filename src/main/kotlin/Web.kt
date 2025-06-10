@@ -38,7 +38,9 @@ class Web(
             DelCommand::class
         )
 
-        use(Core::class).extendSubcommands(NotFoundCommand::class)
+        if (spec.silentlyDispatch) {
+            use(Core::class).extendSubcommands(NotFoundCommand::class)
+        }
 
         useSpec(Hoard::class).recordClassName = WebRecord::class.java.name
 
