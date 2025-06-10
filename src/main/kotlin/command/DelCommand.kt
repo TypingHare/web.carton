@@ -3,7 +3,7 @@ package burrow.carton.web.command
 import burrow.carton.core.command.CoreCommand
 import burrow.carton.hoard.Hoard
 import burrow.carton.hoard.HoardPair
-import burrow.carton.web.WebRecord
+import burrow.carton.web.record.WebRecord
 import picocli.CommandLine
 
 @CommandLine.Command(

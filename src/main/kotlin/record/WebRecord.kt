@@ -1,4 +1,4 @@
-package burrow.carton.web
+package burrow.carton.web.record
 
 import burrow.carton.hoard.Record
 import burrow.carton.hoard.record.Timed
