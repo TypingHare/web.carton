@@ -18,6 +18,7 @@ class OpenCommand : CoreCommand() {
     )
     private var name = ""
 
+    @Suppress("HttpUrlsUsage")
     override fun call(): Int {
         super.call()
 
@@ -28,8 +29,12 @@ class OpenCommand : CoreCommand() {
         }
 
         val record = use(Hoard::class).getStorage<WebRecord>().get(recordId)
+        val protocolPrefixList = listOf("http://", "https://")
         val url = record.url.let {
-            if (it.startsWith("http:")) it else "https://$it"
+            when (protocolPrefixList.none { url -> url.startsWith(it) }) {
+                true -> "https://$it"
+                false -> it
+            }
         }
 
         stdout.println("Opening webpage at: $url")

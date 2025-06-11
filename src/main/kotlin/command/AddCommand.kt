@@ -25,7 +25,7 @@ class AddCommand : CoreCommand() {
     override fun call(): Int {
         super.call()
 
-        dispatch(AddCommand(), listOf(name, url))
+        dispatch(AddCommand::class, name, url)
         stdout.println("Added webpage entry: $name -> $url")
 
         return CommandLine.ExitCode.OK
