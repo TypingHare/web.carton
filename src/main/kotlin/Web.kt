@@ -7,9 +7,12 @@ import burrow.carton.hoard.HoardPair
 import burrow.carton.hoard.RecordNotFoundException
 import burrow.carton.shell.Shell
 import burrow.carton.web.command.*
-import burrow.kernel.Blueprint
-import burrow.kernel.chamber.*
 import burrow.carton.web.record.WebRecord
+import burrow.kernel.Blueprint
+import burrow.kernel.chamber.Furnishing
+import burrow.kernel.chamber.Furniture
+import burrow.kernel.chamber.RawSpec
+import burrow.kernel.chamber.Renovator
 
 const val VERSION = "0.0.0"
 const val REQUIRED_HOARD_VERSION = "0.0.0"
@@ -47,13 +50,10 @@ class Web(
             hoardPairSpec.valueName = "url"
             hoardPairSpec.allowDuplicateKeys = false
         }
-
-        useSpec(Shell::class).shellFileName = "web"
     }
 
     override fun launch() {
-        val shell = use(Shell::class)
-        shell.createShellFileIfNotExist(shell.getDefaultShellContent())
+        use(Shell::class).createShellFileIfNotExist()
     }
 
     fun getAllWebRecords(): List<WebRecord> =
