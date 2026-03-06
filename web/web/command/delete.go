@@ -5,13 +5,13 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func OpenCommand(d share.WebDecorationLike) *cobra.Command {
+func DeleteCommand(d share.WebDecorationLike) *cobra.Command {
 	command := &cobra.Command{
-		Use:   "open <name>",
-		Short: "Open a web",
+		Use:   "delete <name>",
+		Short: "Delete a web record",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return share.OpenWeb(d, args[0])
+			return share.DeleteWeb(d, args[0])
 		},
 	}
 

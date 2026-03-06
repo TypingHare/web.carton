@@ -38,6 +38,8 @@ func (d *WebDecoration) Assemble() error {
 	coreDecoration.SetCommand(nil,
 		command.ListCommand(d),
 		command.AddCommand(d),
+		command.DeleteCommand(d),
+		command.OpenCommand(d),
 	)
 
 	larderDecoration, err := kernel.Use[*larder.LarderDecoration](d.Chamber())
