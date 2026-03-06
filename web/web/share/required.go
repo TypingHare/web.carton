@@ -8,13 +8,31 @@ type WebDecorationLike interface {
 }
 
 type WebSpec struct {
-	AutoDispatch     bool
-	SilentlyDispatch bool
+	AutoRedirect     bool
+	SilentlyRedirect bool
 }
 
 func ParseWebSpec(rawSpec kernel.RawSpec) (WebSpec, error) {
+	autoRedirect, err := kernel.GetRawSpecValueOrDefault(
+		rawSpec,
+		"autoRedirect",
+		true,
+	)
+	if err != nil {
+		return WebSpec{}, err
+	}
+
+	silentlyRedirect, err := kernel.GetRawSpecValueOrDefault(
+		rawSpec,
+		"silentlyRedirect",
+		true,
+	)
+	if err != nil {
+		return WebSpec{}, err
+	}
+
 	return WebSpec{
-		AutoDispatch:     true,
-		SilentlyDispatch: true,
+		AutoRedirect:     autoRedirect,
+		SilentlyRedirect: silentlyRedirect,
 	}, nil
 }

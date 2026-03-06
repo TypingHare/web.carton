@@ -11,8 +11,10 @@ import (
 
 const WebCabinetName = "web"
 
-func GetWebCabinet(chamber *kernel.Chamber) (*share.Cabinet[WebRecord], error) {
-	larderDecoration, err := larder.UseLarderDecoration(chamber)
+func GetWebCabinet(
+	d kernel.DecorationInstance,
+) (*share.Cabinet[WebRecord], error) {
+	larderDecoration, err := larder.UseDecoration(d)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get larder decoration: %w", err)
 	}

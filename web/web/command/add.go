@@ -1,6 +1,8 @@
 package command
 
 import (
+	"fmt"
+
 	"github.com/TypingHare/web.carton/v2026/web/web/share"
 	"github.com/spf13/cobra"
 )
@@ -11,10 +13,9 @@ func AddCommand(d share.WebDecorationLike) *cobra.Command {
 		Short: "Add a web record",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			cabinet, err := share.GetWebCabinet(d.Chamber())
+			cabinet, err := share.GetWebCabinet(d)
 			if err != nil {
-				cmd.PrintErrf("failed to get web cabinet: %v\n", err)
-				return nil
+				return fmt.Errorf("failed to get web cabinet: %w", err)
 			}
 
 			name := args[0]

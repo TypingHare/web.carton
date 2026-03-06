@@ -1,6 +1,7 @@
 package command
 
 import (
+	"fmt"
 	"slices"
 	"sort"
 
@@ -13,10 +14,9 @@ func ListCommand(d share.WebDecorationLike) *cobra.Command {
 		Use:   "list",
 		Short: "Show all web records",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			cabinet, err := share.GetWebCabinet(d.Chamber())
+			cabinet, err := share.GetWebCabinet(d)
 			if err != nil {
-				cmd.PrintErrf("failed to get web cabinet: %v\n", err)
-				return nil
+				return fmt.Errorf("failed to get web cabinet: %w", err)
 			}
 
 			webRecords := slices.Clone(cabinet.Objects)

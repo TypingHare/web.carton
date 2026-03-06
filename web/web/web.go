@@ -6,6 +6,7 @@ import (
 	"github.com/TypingHare/burrow/v2026/burrow/core"
 	"github.com/TypingHare/burrow/v2026/burrow/larder"
 	larderShare "github.com/TypingHare/burrow/v2026/burrow/larder/share"
+	"github.com/TypingHare/burrow/v2026/burrow/redirector"
 	"github.com/TypingHare/burrow/v2026/kernel"
 	"github.com/TypingHare/web.carton/v2026/web/web/command"
 	"github.com/TypingHare/web.carton/v2026/web/web/share"
@@ -17,14 +18,15 @@ type WebDecoration struct {
 
 func (d *WebDecoration) RawSpec() kernel.RawSpec {
 	return kernel.RawSpec{
-		"autoDispatch":     d.Spec().AutoDispatch,
-		"silentlyDispatch": d.Spec().SilentlyDispatch,
+		"autoRedirect":     d.Spec().AutoRedirect,
+		"silentlyRedirect": d.Spec().SilentlyRedirect,
 	}
 }
 
 func (d *WebDecoration) Dependencies() []string {
 	return []string{
 		kernel.GetDecorationID("larder", kernel.CartonName),
+		kernel.GetDecorationID("redirector", kernel.CartonName),
 	}
 }
 
@@ -53,11 +55,21 @@ func (d *WebDecoration) Assemble() error {
 		return fmt.Errorf("failed to add cabinet: %w", err)
 	}
 
+	redirectorDecoration, err := redirector.UseDecoration(d)
+	if err != nil {
+		return fmt.Errorf("failed to get redirector decoration: %w", err)
+	}
+
+	if d.Spec().AutoRedirect {
+		handler := share.GetWebRedirectionHandler(d, d.Spec().SilentlyRedirect)
+		redirectorDecoration.RedirectionHandler = handler
+	}
+
 	return nil
 }
 
 func (d *WebDecoration) Launch() error {
-	cabinet, err := share.GetWebCabinet(d.Chamber())
+	cabinet, err := share.GetWebCabinet(d)
 	if err != nil {
 		return fmt.Errorf("failed to get web cabinet: %w", err)
 	}
@@ -67,7 +79,7 @@ func (d *WebDecoration) Launch() error {
 }
 
 func (d *WebDecoration) Terminate() error {
-	cabinet, err := share.GetWebCabinet(d.Chamber())
+	cabinet, err := share.GetWebCabinet(d)
 	if err != nil {
 		return fmt.Errorf("failed to get web cabinet: %w", err)
 	}
