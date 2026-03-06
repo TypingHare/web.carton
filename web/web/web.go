@@ -63,8 +63,8 @@ func (d *WebDecoration) Assemble() error {
 	}
 
 	if d.Spec().AutoRedirect {
-		handler := share.GetWebRedirectionHandler(d, d.Spec().SilentlyRedirect)
-		redirectorDecoration.RedirectionHandler = handler
+		redirectorDecoration.Redirector = share.WebRedirector
+		redirectorDecoration.Spec().SilentlyRedirect = d.Spec().SilentlyRedirect
 	}
 
 	return nil
