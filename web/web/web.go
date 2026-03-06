@@ -33,7 +33,10 @@ func (d *WebDecoration) Assemble() error {
 	if err != nil {
 		return fmt.Errorf("failed to get core decoration: %w", err)
 	}
-	coreDecoration.MergeCommand(nil, command.ListCommand(d))
+	coreDecoration.SetCommand(nil,
+		command.ListCommand(d),
+		command.AddCommand(d),
+	)
 
 	larderDecoration, err := kernel.Use[*larder.LarderDecoration](d.Chamber())
 	if err != nil {

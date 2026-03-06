@@ -1,6 +1,9 @@
 package command
 
 import (
+	"slices"
+	"sort"
+
 	"github.com/TypingHare/web.carton/v2026/web/web/share"
 	"github.com/spf13/cobra"
 )
@@ -16,8 +19,13 @@ func ListCommand(d share.WebDecorationLike) *cobra.Command {
 				return nil
 			}
 
-			for _, webRecord := range cabinet.Objects {
-				cmd.Printf("%s  %s", webRecord.Name, webRecord.Url)
+			webRecords := slices.Clone(cabinet.Objects)
+			sort.Slice(webRecords, func(i, j int) bool {
+				return webRecords[i].UpdatedAt > webRecords[j].UpdatedAt
+			})
+
+			for _, webRecord := range webRecords {
+				cmd.Printf("%s  %s\n", webRecord.Name, webRecord.Url)
 			}
 
 			return nil

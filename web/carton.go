@@ -8,7 +8,7 @@ import (
 
 const CartonName = "github.com/TypingHare/web.carton"
 
-func RegisterCarton(warehouse *kernel.Warehouse) error {
+func RegisterCartonTo(warehouse *kernel.Warehouse) error {
 	carton := kernel.NewCarton()
 	carton.Metadata.Set(kernel.MetadataName, "github.com/TypingHare/web.carton")
 	carton.Metadata.Set(kernel.MetadataVersion, "2026.0.0")
