@@ -34,7 +34,7 @@ func OpenWeb(d kernel.DecorationInstance, name string) error {
 
 	_, stderr, exitCode, err := coreShare.RunExternalCommand(
 		"",
-		[]string{"open", "https://" + webRecord.Url},
+		[]string{"open", "https://" + webRecord.URL},
 	)
 	if err != nil || exitCode != 0 {
 		return fmt.Errorf(

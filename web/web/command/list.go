@@ -19,13 +19,25 @@ func ListCommand(d share.WebDecorationLike) *cobra.Command {
 				return fmt.Errorf("failed to get web cabinet: %w", err)
 			}
 
-			webRecords := slices.Clone(cabinet.Objects)
-			sort.Slice(webRecords, func(i, j int) bool {
-				return webRecords[i].UpdatedAt > webRecords[j].UpdatedAt
+			records := slices.Clone(cabinet.Objects)
+			sort.Slice(records, func(i, j int) bool {
+				return records[i].UpdatedAt > records[j].UpdatedAt
 			})
 
-			for _, webRecord := range webRecords {
-				cmd.Printf("%s  %s\n", webRecord.Name, webRecord.Url)
+			longestNameLength := 0
+			for _, record := range records {
+				if len(record.Name) > longestNameLength {
+					longestNameLength = len(record.Name)
+				}
+			}
+
+			for _, record := range records {
+				cmd.Printf(
+					"%-*s    %s\n",
+					longestNameLength,
+					record.Name,
+					record.URL,
+				)
 			}
 
 			return nil

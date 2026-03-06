@@ -9,7 +9,7 @@ import (
 // WebRecord.
 type WebRecord struct {
 	Name      string
-	Url       string
+	URL       string
 	CreatedAt int64
 	UpdatedAt int64
 }
@@ -18,7 +18,7 @@ func NewWebRecord(name string, url string) WebRecord {
 	now := time.Now().Unix()
 	return WebRecord{
 		Name:      name,
-		Url:       url,
+		URL:       url,
 		CreatedAt: now,
 		UpdatedAt: now,
 	}
@@ -27,7 +27,7 @@ func NewWebRecord(name string, url string) WebRecord {
 func SerializeWebRecord(record WebRecord) []string {
 	return []string{
 		record.Name,
-		record.Url,
+		record.URL,
 		strconv.FormatInt(record.CreatedAt, 10),
 		strconv.FormatInt(record.UpdatedAt, 10),
 	}
@@ -57,7 +57,7 @@ func DeserializeWebRecord(items []string) (WebRecord, error) {
 
 	return WebRecord{
 		Name:      name,
-		Url:       url,
+		URL:       url,
 		CreatedAt: createdAt,
 		UpdatedAt: updatedAt,
 	}, nil
